@@ -13,14 +13,17 @@
  */
 
 #include "falcon/util/FalconCLIBase.h"
-#ifdef LIBFTD2XX
+#if defined(LIBFTD2XX)
 #include "falcon/comm/FalconCommFTD2XX.h"
 #endif
-#ifdef LIBFTDI
+#if defined(LIBFTDI)
 #include "falcon/comm/FalconCommLibFTDI.h"
 #endif
-#ifdef LIBUSB
+#if defined(LIBUSB)
 #include "falcon/comm/FalconCommLibUSB.h"
+#endif
+#if defined(COMMIOKIT)
+#include "falcon/comm/FalconCommIOKit.h"
 #endif
 #include "falcon/firmware/FalconFirmwareNovintSDK.h"
 #include "falcon/util/FalconFirmwareBinaryTest.h"
@@ -45,6 +48,9 @@ namespace libnifalcon
 		{
 			po::options_description comm("Communication Options");
 			comm.add_options()
+#if defined(COMMIOKIT)
+				("iokit", "use iokit based driver")
+#endif
 #if defined(LIBUSB)
 				("libusb", "use libusb-1.0 based driver")
 #endif
@@ -101,7 +107,14 @@ namespace libnifalcon
 			std::cout << "Error: can only use one comm method. Choose either libftdi or ftd2xx, depending on which is available." << std::endl;		
 		}
 		//This is an either/or choice, since we can't link against both. Prefer libftdi. Thanks for the static linking against old libusb binaries, FTDI!
-
+		bool comm_mode = false;
+#if defined(COMMIOKIT)
+		if (m_varMap.count("iokit"))
+		{
+			std::cout << "Setting up iokit device" << std::endl;
+			device.setFalconComm<FalconCommIOKit>();
+		}
+#endif
 #if defined(LIBUSB)
 		else if (m_varMap.count("libusb"))
 		{
@@ -122,7 +135,7 @@ namespace libnifalcon
 			device.setFalconComm<FalconCommFTD2XX>();
 		}
 #endif
-        else
+		else
 		{
             std::cout << "No communication method selected." << std::endl;
             return false;

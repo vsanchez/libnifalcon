@@ -105,10 +105,6 @@ namespace libnifalcon
 				if(m_rawDataSize <= 0) read_successful = false;
 				else read_successful = true;
 			}
-			else
-			{
-				return false;
-			}
 		}
 		else if(m_hasWritten && !m_falconComm->hasBytesAvailable())
 		{
@@ -117,6 +113,10 @@ namespace libnifalcon
 		}
 		//Send information to the falcon
 		formatInput();
+		if(!m_falconComm)
+		{
+			return false;
+		}
 		if(!m_falconComm->write((uint8_t*)m_rawInput, (uint32_t)16))
 		{
 			return false;

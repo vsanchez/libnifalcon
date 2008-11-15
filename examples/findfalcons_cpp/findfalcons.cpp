@@ -15,6 +15,8 @@
 #include "falcon/core/FalconDevice.h"
 #if defined(LIBUSB)
 #include "falcon/comm/FalconCommLibUSB.h"
+#elif defined(COMMIOKIT)
+#include "falcon/comm/FalconCommIOKit.h"
 #elif defined(LIBFTDI)
 #include "falcon/comm/FalconCommLibFTDI.h"
 #elif defined(LIBFTD2XX)
@@ -103,8 +105,9 @@ void runFalconTest(FalconDevice& d)
 			++count;
 		}
 	}
-	f->setLEDStatus(0);
-	dev.runIOLoop();	
+	f->setLEDStatus(0);	
+	dev.runIOLoop();
+
 	dev.close();
 }
 
@@ -115,6 +118,9 @@ int main(int argc, char** argv)
 #if defined(LIBUSB)
 	std::cout << "Running libusb test" << std::endl;
 	dev.setFalconComm<FalconCommLibUSB>();
+#elif defined(COMMIOKIT)
+	std::cout << "Running iokit test" << std::endl;
+	dev.setFalconComm<FalconCommIOKit>();
 #elif defined(LIBFTDI)
 	std::cout << "Running libftdi test" << std::endl;
 	dev.setFalconComm<FalconCommLibFTDI>();
