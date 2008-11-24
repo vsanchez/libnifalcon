@@ -23,7 +23,9 @@
 #include "falcon/firmware/FalconFirmwareNovintSDK.h"
 #include "falcon/util/FalconFirmwareBinaryNvent.h"
 //#include "kinematic/FalconKinematicStamper.h"
+#ifndef WIN32
 #include <sys/time.h>
+#endif
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -48,9 +50,9 @@ void runFalconTest(FalconDevice& d)
 	double position[3];
 	int8_t num_falcons;
 	int status, i;
-	u_int8_t count;
-	u_int32_t error_count = 0;
-	u_int32_t loop_count = 0;
+	uint8_t count;
+	uint32_t error_count = 0;
+	uint32_t loop_count = 0;
 
 	dev.setFalconFirmware<FalconFirmwareNovintSDK>();
 
@@ -63,7 +65,7 @@ void runFalconTest(FalconDevice& d)
 
 	count = 0;
 
-	std::cout << "Falcons found: " << num_falcons << std::endl;
+	std::cout << "Falcons found: " << (int)num_falcons << std::endl;
 
 	std::cout << "Opening falcon" << std::endl;
 	
@@ -111,16 +113,18 @@ void runFalconTest(FalconDevice& d)
 int main(int argc, char** argv)
 {
 	signal(SIGINT, sigproc);
+#ifndef WIN32
 	signal(SIGQUIT, sigproc);
+#endif
 #if defined(LIBUSB)
 	std::cout << "Running libusb test" << std::endl;
 	dev.setFalconComm<FalconCommLibUSB>();
 #elif defined(LIBFTDI)
 	std::cout << "Running libftdi test" << std::endl;
 	dev.setFalconComm<FalconCommLibFTDI>();
-#elif defined(FTD2xx)
+#elif defined(LIBFTD2XX)
 	std::cout << "Running ftd2xx test" << std::endl;
-	dev.setFalconComm<FalconCommLibFTD2XX>();	
+	dev.setFalconComm<FalconCommFTD2XX>();	
 #endif	
 	runFalconTest(dev);
 	return 0;

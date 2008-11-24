@@ -13,6 +13,7 @@
  */
 #include "falcon/comm/FalconCommFTD2XX.h"
 #include <cstring>
+#include <iostream>
 
 namespace libnifalcon
 {
@@ -25,8 +26,9 @@ namespace libnifalcon
 	
 	bool FalconCommFTD2XX::getDeviceCount(int8_t& device_count)
 	{
+		std::cout << "Getting count!" << std::endl;
 		device_count = openDeviceFTD2XX(0, true);
-		return true;
+		return false;
 	}
 
 	bool FalconCommFTD2XX::open(uint8_t index)
@@ -49,11 +51,13 @@ namespace libnifalcon
 		for(i = 0; i < MAX_DEVICES; i++) {
 			pcBufLD[i] = cBufLD[i];
 		}
+		std::cout << "count call" << std::endl;
 		if((m_deviceErrorCode = FT_ListDevices(pcBufLD, &device_count, FT_LIST_ALL | FT_OPEN_BY_DESCRIPTION)) != FT_OK)
 		{
 			m_errorCode = FALCON_COMM_DEVICE_ERROR;
 			return -1;
 		}
+		std::cout << "no fail" << std::endl;
 		for(i = 0; (i < device_count) && (falcon_count <= device_index); ++i)
 		{
 			if(!strcmp(cBufLD[i], FALCON_DESCRIPTION)) ++falcon_count;
@@ -149,6 +153,16 @@ namespace libnifalcon
 		return true;
 	}
 
+	void FalconCommFTD2XX::poll()
+	{
+		if(!m_isCommOpen)
+		{
+			m_errorCode = FALCON_COMM_DEVICE_NOT_VALID_ERROR;
+			return;
+		}
+		if((m_deviceErrorCode = FT_GetQueueStatus(m_falconDevice, (DWORD*)&m_bytesAvailable)) != FT_OK) return;
+		m_hasBytesAvailable = (m_bytesAvailable > 0);
+	}
 	bool FalconCommFTD2XX::setFirmwareMode()
 	{
 		uint32_t bytes_written, bytes_read;

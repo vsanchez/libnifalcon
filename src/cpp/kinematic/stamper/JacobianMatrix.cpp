@@ -57,13 +57,13 @@ namespace libnifalcon
 
 		void JacobianMatrix::calculateJFi(arm_id arm, Angle angle, gmtl::Matrix33f *matrix)
 		{
-			float JFi1 = cos(angle.theta2[arm])*sin(angle.theta3[arm])*cos(phy[arm])-
-				cos(angle.theta3[arm])*sin(phy[arm]);
+			float JFi1 = Math::cos(angle.theta2[arm])*Math::sin(angle.theta3[arm])*Math::cos(phy[arm])-
+				Math::cos(angle.theta3[arm])*Math::sin(phy[arm]);
 	
-			float JFi2 = cos(angle.theta3[arm])*cos(phy[arm])+
-				cos(angle.theta2[arm])*sin(angle.theta3[arm])*sin(phy[arm]);
+			float JFi2 = Math::cos(angle.theta3[arm])*Math::cos(phy[arm])+
+				Math::cos(angle.theta2[arm])*Math::sin(angle.theta3[arm])*Math::sin(phy[arm]);
 	
-			float JFi3 = sin(angle.theta2[arm])*sin(angle.theta3[arm]);
+			float JFi3 = Math::sin(angle.theta2[arm])*Math::sin(angle.theta3[arm]);
 	
 			(*matrix)[arm][0] = JFi1;
 			(*matrix)[arm][1] = JFi2;
@@ -72,7 +72,7 @@ namespace libnifalcon
 
 		void JacobianMatrix::calculateJIi(arm_id arm, Angle angle, gmtl::Matrix33f *matrix)
 		{
-			float JIi = a*sin(angle.theta2[arm]-angle.theta1[arm])*sin(angle.theta3[arm]);
+			float JIi = a*Math::sin(angle.theta2[arm]-angle.theta1[arm])*Math::sin(angle.theta3[arm]);
 	
 			(*matrix)[arm][arm] = JIi;
 		}

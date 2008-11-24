@@ -29,8 +29,9 @@
 #include "falcon/kinematic/FalconKinematicStamper.h"
 #include "falcon/firmware/FalconFirmwareNovintSDK.h"
 #include "falcon/util/FalconCLIBase.h"
+#ifndef WIN32
 #include "sys/time.h"
-
+#endif
 using namespace libnifalcon;
 namespace po = boost::program_options;
 
@@ -45,7 +46,7 @@ void sigproc(int i)
 	}
 	else exit(0);
 }
-
+#ifndef WIN32
 static struct timeval _tstart, _tend;
 static struct timezone tz;
 void tstart()
@@ -65,7 +66,7 @@ double tval()
 	t2 =  (double)_tend.tv_sec + (double)_tend.tv_usec/(1000*1000);
 	return t2-t1;
 }
-
+#endif
 class FalconCLITest : public FalconCLIBase
 {
 	FalconDevice m_falconDevice;
@@ -120,7 +121,7 @@ public:
 		}
 		m_falconDevice.getFalconFirmware()->setLEDStatus(led);
 		m_falconDevice.runIOLoop();
-
+#ifndef WIN32
 		if(m_varMap.count("loop_time_test"))
 		{
 			stop = false;
@@ -136,7 +137,7 @@ public:
 				std::cout << "Loop time (in seconds): " << tval() << std::endl;
 			}
 		}
-
+#endif
 		if(m_varMap.count("cube_test"))
         {
 			m_falconDevice.getFalconFirmware()->setHomingMode(true);
@@ -157,7 +158,9 @@ public:
 			int count = 0;
 			while(!stop)
 			{
+#ifndef WIN32
 				if(!count) tstart();
+#endif
                 if(!m_falconDevice.runIOLoop()) continue;
 				if(!m_falconDevice.getFalconFirmware()->isHomed())
 				{
@@ -214,6 +217,7 @@ public:
                     force[closest] = -stiffness*dist;
 
                 m_falconDevice.setForce(force);
+#ifndef WIN32
 				++count;
 				if(count == 1000)
 				{
@@ -221,6 +225,7 @@ public:
 					std::cout << "Loop time (in seconds): " << tval() << std::endl;
 					count = 0;
 				}
+#endif
             }
         }
 
@@ -232,7 +237,9 @@ int main(int argc, char** argv)
 {
 
 	signal(SIGINT, sigproc);
+#ifndef WIN32
 	signal(SIGQUIT, sigproc);
+#endif
 	FalconCLITest f;
 	f.addOptions(FalconCLITest::LED_OPTIONS | FalconCLITest::DEVICE_OPTIONS | FalconCLITest::COMM_OPTIONS | FalconCLITest::FIRMWARE_OPTIONS);	
 	if(!f.parseOptions(argc, argv))
