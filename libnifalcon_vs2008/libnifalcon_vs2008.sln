@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libnifalcon", "libnifalcon_vs2008\libnifalcon_vs2008.vcproj", "{179A6AB2-8B2E-48A5-9D65-8B8550C27F49}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libnifalcon_comm_ftd2xx", "libnifalcon_comm_ftd2xx\libnifalcon_comm_ftd2xx.vcproj", "{1D155F24-C88D-4940-8F02-B94D4C865749}"
+	ProjectSection(ProjectDependencies) = postProject
+		{179A6AB2-8B2E-48A5-9D65-8B8550C27F49} = {179A6AB2-8B2E-48A5-9D65-8B8550C27F49}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libnifalcon_cli_base", "libnifalcon_cli_base\libnifalcon_cli_base.vcproj", "{1EB9A06C-0009-493B-8BF5-3B7791F9399A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{179A6AB2-8B2E-48A5-9D65-8B8550C27F49} = {179A6AB2-8B2E-48A5-9D65-8B8550C27F49}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "falcon_test_cli", "falcon_test_cli\falcon_test_cli.vcproj", "{B8F1BF60-4A9B-4B3A-84FC-7A8A01011D0F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1D155F24-C88D-4940-8F02-B94D4C865749} = {1D155F24-C88D-4940-8F02-B94D4C865749}
+		{1EB9A06C-0009-493B-8BF5-3B7791F9399A} = {1EB9A06C-0009-493B-8BF5-3B7791F9399A}
+		{179A6AB2-8B2E-48A5-9D65-8B8550C27F49} = {179A6AB2-8B2E-48A5-9D65-8B8550C27F49}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "findfalcons_cpp", "findfalcons_cpp\findfalcons_cpp.vcproj", "{BFE790A5-804A-4746-BB92-31D9E3583D91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{179A6AB2-8B2E-48A5-9D65-8B8550C27F49}.Debug|Win32.ActiveCfg = Debug|Win32
+		{179A6AB2-8B2E-48A5-9D65-8B8550C27F49}.Debug|Win32.Build.0 = Debug|Win32
+		{179A6AB2-8B2E-48A5-9D65-8B8550C27F49}.Release|Win32.ActiveCfg = Release|Win32
+		{179A6AB2-8B2E-48A5-9D65-8B8550C27F49}.Release|Win32.Build.0 = Release|Win32
+		{1D155F24-C88D-4940-8F02-B94D4C865749}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1D155F24-C88D-4940-8F02-B94D4C865749}.Debug|Win32.Build.0 = Debug|Win32
+		{1D155F24-C88D-4940-8F02-B94D4C865749}.Release|Win32.ActiveCfg = Release|Win32
+		{1D155F24-C88D-4940-8F02-B94D4C865749}.Release|Win32.Build.0 = Release|Win32
+		{1EB9A06C-0009-493B-8BF5-3B7791F9399A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1EB9A06C-0009-493B-8BF5-3B7791F9399A}.Debug|Win32.Build.0 = Debug|Win32
+		{1EB9A06C-0009-493B-8BF5-3B7791F9399A}.Release|Win32.ActiveCfg = Release|Win32
+		{1EB9A06C-0009-493B-8BF5-3B7791F9399A}.Release|Win32.Build.0 = Release|Win32
+		{B8F1BF60-4A9B-4B3A-84FC-7A8A01011D0F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B8F1BF60-4A9B-4B3A-84FC-7A8A01011D0F}.Debug|Win32.Build.0 = Debug|Win32
+		{B8F1BF60-4A9B-4B3A-84FC-7A8A01011D0F}.Release|Win32.ActiveCfg = Release|Win32
+		{B8F1BF60-4A9B-4B3A-84FC-7A8A01011D0F}.Release|Win32.Build.0 = Release|Win32
+		{BFE790A5-804A-4746-BB92-31D9E3583D91}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BFE790A5-804A-4746-BB92-31D9E3583D91}.Debug|Win32.Build.0 = Debug|Win32
+		{BFE790A5-804A-4746-BB92-31D9E3583D91}.Release|Win32.ActiveCfg = Release|Win32
+		{BFE790A5-804A-4746-BB92-31D9E3583D91}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
