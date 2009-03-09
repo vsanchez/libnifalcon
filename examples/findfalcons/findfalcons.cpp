@@ -23,7 +23,7 @@
 #endif
 #include "falcon/firmware/FalconFirmwareNovintSDK.h"
 #include "falcon/util/FalconFirmwareBinaryNvent.h"
-#include <sys/time.h>
+//#include <sys/time.h>
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -67,11 +67,11 @@ void runFalconTest(FalconDevice& d)
 	FalconFirmware* f;
 	FalconKinematic* k;
 	double position[3];
-	int8_t num_falcons;
+	int num_falcons = 0;
 	int status, i;
-	uint8_t count;
-	uint32_t error_count = 0;
-	uint32_t loop_count = 0;
+	unsigned int count;
+	unsigned int error_count = 0;
+	unsigned int loop_count = 0;
 
 	dev.setFalconFirmware<FalconFirmwareNovintSDK>();
 
@@ -80,6 +80,7 @@ void runFalconTest(FalconDevice& d)
 	if(!dev.getDeviceCount(num_falcons))
 	{
 		std::cout << "Cannot get device_libftdi count" << std::endl;
+		//return;
 	}
 
 	count = 0;
@@ -153,9 +154,9 @@ int main(int argc, char** argv)
 #elif defined(LIBFTDI)
 	std::cout << "Running libftdi test" << std::endl;
 	dev.setFalconComm<FalconCommLibFTDI>();
-#elif defined(FTD2xx)
+#elif defined(LIBFTD2XX)
 	std::cout << "Running ftd2xx test" << std::endl;
-	dev.setFalconComm<FalconCommLibFTD2XX>();	
+	dev.setFalconComm<FalconCommFTD2XX>();	
 #endif	
 	runFalconTest(dev);
 	return 0;

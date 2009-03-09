@@ -100,7 +100,7 @@ namespace libnifalcon
 			//hack to make libftdi work for the time being
 			//always read the maximum amount available from the endpoint to make sure we don't lose anything
 			if(m_rawDataSize <= 0 && !m_falconComm->requiresPoll()) m_rawDataSize = 16;
-			if(m_falconComm->read((uint8_t*)m_rawData, (uint32_t)m_rawDataSize))
+			if(m_falconComm->read((uint8_t*)m_rawData, m_rawDataSize))
 			{
 				formatOutput();
 				m_hasWritten = false;
@@ -119,7 +119,7 @@ namespace libnifalcon
 		}
 		//Send information to the falcon
 		formatInput();
-		if(!m_falconComm->write((uint8_t*)m_rawInput, (uint32_t)16))
+		if(!m_falconComm->write((uint8_t*)m_rawInput, 16))
 		{
 			return false;
 		}

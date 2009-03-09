@@ -57,7 +57,7 @@ namespace libnifalcon
 		 * 
 		 * @return True if count was retreived correctly, false otherwise. Error code set if false.
 		 */
-		virtual bool getDeviceCount(int8_t& count) = 0;
+		virtual bool getDeviceCount(int& count) = 0;
 		/** 
 		 * Opens the device at the specified index
 		 * 
@@ -65,7 +65,7 @@ namespace libnifalcon
 		 * 
 		 * @return True if device is opened successfully, false otherwise. Error code set if false.
 		 */
-		virtual bool open(uint8_t index) = 0;
+		virtual bool open(unsigned int index) = 0;
 		/** 
 		 * Closes the device, if open
 		 * 
@@ -81,7 +81,7 @@ namespace libnifalcon
 		 * 
 		 * @return True if (size) amount of bytes is read successfully, false otherwise. Error code set if false.
 		 */
-		virtual bool read(uint8_t* str, uint32_t size) = 0;
+		virtual bool read(uint8_t* str, unsigned int size) = 0;
 		/** 
 		 * Write a specified number of bytes to the device
 		 * 
@@ -90,7 +90,7 @@ namespace libnifalcon
 		 * 
 		 * @return True if (size) amount of bytes is written successfully, false otherwise. Error code set if false.
 		 */
-		virtual bool write(uint8_t* str, uint32_t size) = 0;
+		virtual bool write(uint8_t* str, unsigned int size) = 0;
 		/** 
 		 * Sets the communications mode and initializes the device to load firmware 
 		 * 
@@ -139,13 +139,13 @@ namespace libnifalcon
 
 		bool requiresPoll() { return m_requiresPoll; }
 		bool hasBytesAvailable() { return m_hasBytesAvailable; }
-		uint32_t getBytesAvailable() { return m_bytesAvailable; }
-		void setBytesAvailable(uint32_t b) { m_bytesAvailable = b; }
+		unsigned int getBytesAvailable() { return m_bytesAvailable; }
+		void setBytesAvailable(unsigned int b) { m_bytesAvailable = b; }
 		virtual void poll() {}
 	protected:
-		const static uint8_t MAX_DEVICES = 128; /**< Maximum number of devices to store in count buffers */
-		const static uint16_t FALCON_VENDOR_ID = 0x0403; /**< USB Vendor ID for the Falcon */
-		const static uint16_t FALCON_PRODUCT_ID = 0xCB48; /**< USB Product ID from the Falcon */
+		const static unsigned int MAX_DEVICES = 128; /**< Maximum number of devices to store in count buffers */
+		const static unsigned int FALCON_VENDOR_ID = 0x0403; /**< USB Vendor ID for the Falcon */
+		const static unsigned int FALCON_PRODUCT_ID = 0xCB48; /**< USB Product ID from the Falcon */
 		int m_deviceErrorCode;	/**< Communications policy specific error code */
 		int m_lastBytesRead;	/**< Number of bytes read in last read operation */
 		int m_lastBytesWritten; /**< Number of bytes written in the last write operation */

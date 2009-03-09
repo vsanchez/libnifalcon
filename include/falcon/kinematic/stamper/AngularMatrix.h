@@ -33,7 +33,7 @@ namespace libnifalcon
 			 * @param range Range of each axis of the workspace (in meters)
 			 * @param size Dimension for single dimension of the lookup table (lookup table is 3D)
 			 */
-			AngularMatrix(const gmtl::Vec3f &center, const float &range, const uint32_t size);
+			AngularMatrix(const gmtl::Vec3f &center, const float &range, const unsigned int size);
 			/** 
 			 * Destructor
 			 * 
@@ -94,7 +94,7 @@ namespace libnifalcon
 			typedef boost::multi_array<float, 4> angular_array; 
 			typedef angular_array::index angular_array_index;
 
-			gmtl::Vec3f getVec(uint32_t a, uint32_t b, uint32_t c);
+			gmtl::Vec3f getVec(unsigned int a, unsigned int b, unsigned int c);
 			void copyLookupTable(const float lookup[16][16][16][3]);
 		private:
 			/** 
@@ -105,12 +105,12 @@ namespace libnifalcon
 			 * @param c Indexer to third dimension of matrix (Left encoder value)
 			 * @param vector Vector to copy
 			 */
-			void setVec(const uint32_t a, const uint32_t b, const uint32_t c, const gmtl::Vec3f &vector);
+			void setVec(const unsigned int a, const unsigned int b, const unsigned int c, const gmtl::Vec3f &vector);
 			
 			/**
 			 * Conveinence. Does converstion and calls above setVec function
 			 */
-			void setVec(const uint32_t a, const uint32_t b, const uint32_t c, const gmtl::Point3f &vector);
+			void setVec(const unsigned int a, const unsigned int b, const unsigned int c, const gmtl::Point3f &vector);
 
 			/** 
 			 * Given encoder values a, b, c, return 

@@ -56,8 +56,8 @@ namespace libnifalcon
 			gmtl::Point3f calculate(gmtl::Vec3f &angle);
 
 			const static double POSITION_CENTER[3]; /**< Origin of the workspace (offset from the fixed frame origin */
-			const static float POSITION_RANGE = 0.200; /**< Range of each axis of the workspace */
-			const static uint32_t POSITION_MATRIX_DENSITY = 64; /**< Density of the positional lookup table */
+			const static float POSITION_RANGE; /**< Range of each axis of the workspace */
+			const static unsigned int POSITION_MATRIX_DENSITY; /**< Density of the positional lookup table */
 
 		private:
 

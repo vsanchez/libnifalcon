@@ -75,7 +75,7 @@ namespace libnifalcon
 		 *
 		 * @return true if forces are generated, false otherwise.
 		 */
-		virtual bool getForces(const double (&position)[3], const double (&cart_force)[3], int16_t (&enc_force)[3]);
+		virtual bool getForces(const double (&position)[3], const double (&cart_force)[3], int (&enc_force)[3]);
 
 		/** 
 		 * Given a caretesian position (in meters), return the angle of the legs requires to achieve the positions
@@ -97,7 +97,7 @@ namespace libnifalcon
 		 *
 		 * @return true if angles are found, false otherwise (i.e. position out of workspace range)
 		 */
-		virtual bool getPosition(const int16_t (&angles)[3], double (&position)[3]);
+		virtual bool getPosition(const int (&angles)[3], double (&position)[3]);
 
 		/** 
 		 * Returns the center point of the workspace. May not always be [0,0,0].

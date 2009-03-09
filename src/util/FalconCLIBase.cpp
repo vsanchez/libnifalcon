@@ -180,7 +180,7 @@ namespace libnifalcon
 		//Device count check
 		if(m_varMap.count("device_count"))
 		{
-			int8_t count;
+			int count;
 			device.getDeviceCount(count);
 			std::cout << "Connected Device Count: " << (int)count << std::endl;
 			return false;

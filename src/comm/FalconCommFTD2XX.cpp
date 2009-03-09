@@ -32,18 +32,18 @@ namespace libnifalcon
 		close();
 	}
 	
-	bool FalconCommFTD2XX::getDeviceCount(int8_t& device_count)
+	bool FalconCommFTD2XX::getDeviceCount(int& device_count)
 	{
 		device_count = openDeviceFTD2XX(0, true);
 		return true;
 	}
 
-	bool FalconCommFTD2XX::open(uint8_t index)
+	bool FalconCommFTD2XX::open(unsigned int index)
 	{
 		return openDeviceFTD2XX(index, false) >= 0;
 	}
 
-	int8_t FalconCommFTD2XX::openDeviceFTD2XX(uint8_t device_index, bool stop_at_count)
+	int FalconCommFTD2XX::openDeviceFTD2XX(unsigned int device_index, bool stop_at_count)
 	{
 		unsigned int falcon_count = 0, device_count = 0, i = 0;
 		char* pcBufLD[MAX_DEVICES + 1];
@@ -171,7 +171,7 @@ namespace libnifalcon
 	}
 	bool FalconCommFTD2XX::setFirmwareMode()
 	{
-		uint32_t bytes_written, bytes_read;
+		unsigned int bytes_written, bytes_read;
 		uint8_t check_msg_1[3] = {0x0a, 0x43, 0x0d};
 		uint8_t check_msg_2[1] = {'A'};
 		uint8_t send_buf[128], receive_buf[128];

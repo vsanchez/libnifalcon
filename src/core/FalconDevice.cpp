@@ -39,7 +39,7 @@ namespace libnifalcon
 		}
 	}
 
-    bool FalconDevice::getDeviceCount(int8_t& count)
+    bool FalconDevice::getDeviceCount(int& count)
 	{
 		if(m_falconComm == NULL)
 		{
@@ -50,7 +50,7 @@ namespace libnifalcon
 		return m_falconComm->getDeviceCount(count);
 	}
 
-    bool FalconDevice::open(uint8_t index)
+    bool FalconDevice::open(unsigned int index)
 	{
 		if(m_falconComm == NULL)
 		{
@@ -123,7 +123,7 @@ namespace libnifalcon
 		return m_falconFirmware->isFirmwareLoaded();
 	}
 	
-	bool FalconDevice::runIOLoop(uint8_t exe_flags)
+	bool FalconDevice::runIOLoop(unsigned int exe_flags)
 	{
 		if(m_falconFirmware == NULL)
 		{
@@ -132,7 +132,7 @@ namespace libnifalcon
 		}		
 		if(m_falconKinematic != NULL && (exe_flags & FALCON_LOOP_KINEMATIC))
 		{
-			int16_t enc_vec[3];
+			int enc_vec[3];
 			m_falconKinematic->getForces(m_position, m_forceVec, enc_vec);
 			m_falconFirmware->setForces(enc_vec);
 		}
@@ -152,7 +152,7 @@ namespace libnifalcon
 		}
 		if(m_falconKinematic != NULL && (exe_flags & FALCON_LOOP_KINEMATIC))
 		{
-			int16_t p[3];
+			int p[3];
 			//Stopgap until boost::array conversion
 			p[0] = m_falconFirmware->getEncoderValues()[0];
 			p[1] = m_falconFirmware->getEncoderValues()[1];

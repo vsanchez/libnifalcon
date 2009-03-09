@@ -83,7 +83,7 @@ namespace libnifalcon
 		 * 
 		 * @return Size of the buffer that getGripInfo will return
 		 */		
-		virtual int32_t getGripInfoSize() = 0;
+		virtual int getGripInfoSize() = 0;
 		
 		/** 
 		 * Retrieves the buffer containing grip data
@@ -98,7 +98,7 @@ namespace libnifalcon
 		 * 
 		 * @param force Array of signed 16-bit integers to set force
 		 */
-		void setForces(const int16_t (&force)[3])
+		void setForces(const int (&force)[3])
 		{
 			m_forceValues[0] = force[0];
 			m_forceValues[1] = force[1];
@@ -110,7 +110,7 @@ namespace libnifalcon
 		 * 
 		 * @return Signed 16-bit integers representing the current encoder values for each motor
 		 */
-		int16_t* getEncoderValues() { return m_encoderValues; }
+		int* getEncoderValues() { return m_encoderValues; }
 
 		/** 
 		 * Sets the LEDs to turn on or off at the next I/O loop
@@ -221,11 +221,11 @@ namespace libnifalcon
 
 		//Values sent to falcon
 		bool m_homingMode;		/**< True if homing mode is on, false for homing mode off */
-		uint8_t m_ledStatus;	/**< Bitfield for LED Status */
-		int16_t m_forceValues[3]; /**< Force values for the next I/O loop */
+		unsigned int m_ledStatus;	/**< Bitfield for LED Status */
+		int m_forceValues[3]; /**< Force values for the next I/O loop */
 		//Values received from falcon
-		int16_t m_encoderValues[3];	/**< Encoder values from the last I/O loop */
-		uint8_t m_homingStatus; /**< Current homing status from the last I/O loop */
+		int m_encoderValues[3];	/**< Encoder values from the last I/O loop */
+		unsigned int m_homingStatus; /**< Current homing status from the last I/O loop */
 
 		bool m_hasWritten; /**< True if we're waiting for a read return */
 	private:
