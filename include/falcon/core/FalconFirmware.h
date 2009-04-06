@@ -19,6 +19,7 @@
 #include <string>
 #include <cstdlib>
 #include <deque>
+#include "boost/array.hpp"
 #include "boost/shared_ptr.hpp"
 #include "falcon/core/FalconComm.h"
 #include "falcon/core/FalconLogger.h"
@@ -99,7 +100,7 @@ namespace libnifalcon
 		 *
 		 * @param force Array of signed 16-bit integers to set force
 		 */
-		void setForces(const int16_t (&force)[3])
+		void setForces(const boost::array<int16_t, 3> (&force))
 		{
 			m_forceValues[0] = force[0];
 			m_forceValues[1] = force[1];
